@@ -84,18 +84,44 @@ cp .env.example .env
 # Edit .env with your API keys
 ```
 
-## ✅ Testing
+## ✅ Testing & Validation
 
 The project structure has been verified to have:
 - ✅ Valid Python syntax in all files
 - ✅ Proper class and module organization
 - ✅ All required files present
 
-To run the examples after installing dependencies:
+### Full Validation
+
+To fully validate the project with DSpy:
+
+```bash
+# 1. Install all dependencies
+pip install -r requirements.txt
+
+# 2. Set up API keys in .env file
+cp .env.example .env
+# Edit .env and add your OpenAI/Anthropic API keys
+
+# 3. Run validation script
+python validate_with_dspy.py
+```
+
+### Running Examples
+
+After validation, run the examples:
 ```bash
 python main.py  # Interactive demo of all techniques
 python examples/quick_start.py  # Quick start examples
 ```
+
+### What Gets Validated
+
+The validation script checks:
+1. **Dependencies**: All required packages are installed
+2. **Module Creation**: All DSpy modules can be instantiated
+3. **Basic Functionality**: Core features work without API calls
+4. **API Keys**: Environment is configured for LLM usage
 
 ## 📖 Quick Start
 
