@@ -228,6 +228,21 @@ dspy-advanced-prompting/
 └── tests/                       # Unit tests
 ```
 
+## 📓 Interactive Jupyter Notebooks
+
+**New!** Explore techniques hands-on with our interactive notebooks:
+
+- **[Manager-Style Tutorial](notebooks/manager_style_tutorial.ipynb)** - Build hyper-specific prompts with comprehensive examples
+- **[Technique Comparison](notebooks/technique_comparison.ipynb)** - Side-by-side performance analysis of all techniques  
+- **[When to Use What](notebooks/when_to_use_what.ipynb)** - Interactive decision guide for choosing techniques
+- **[Escape Hatches Deep Dive](notebooks/escape_hatches_deep_dive.ipynb)** - Master uncertainty handling and confidence calibration
+
+```bash
+# Start Jupyter and explore
+pip install jupyter matplotlib
+jupyter notebook notebooks/
+```
+
 ## 🧪 Running Examples
 
 ```bash
