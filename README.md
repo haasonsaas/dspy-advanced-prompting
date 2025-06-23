@@ -69,8 +69,12 @@ This project demonstrates advanced prompting strategies that go beyond simple pr
 
 ```bash
 # Clone the repository
-git clone [repository-url]
+git clone https://github.com/haasonsaas/dspy-advanced-prompting.git
 cd dspy-advanced-prompting
+
+# Create virtual environment (recommended)
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -78,6 +82,19 @@ pip install -r requirements.txt
 # Set up environment variables
 cp .env.example .env
 # Edit .env with your API keys
+```
+
+## ✅ Testing
+
+The project structure has been verified to have:
+- ✅ Valid Python syntax in all files
+- ✅ Proper class and module organization
+- ✅ All required files present
+
+To run the examples after installing dependencies:
+```bash
+python main.py  # Interactive demo of all techniques
+python examples/quick_start.py  # Quick start examples
 ```
 
 ## 📖 Quick Start
