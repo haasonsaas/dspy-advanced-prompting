@@ -99,18 +99,39 @@ The project has been comprehensively tested and verified:
 
 ### Full Validation
 
-To fully validate the project with DSpy:
+To validate the project structure and modules:
 
 ```bash
-# 1. Install all dependencies
+# 1. Activate virtual environment (recommended)
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# 2. Install all dependencies
 pip install -r requirements.txt
 
-# 2. Set up API keys in .env file
-cp .env.example .env
-# Edit .env and add your OpenAI/Anthropic API keys
-
-# 3. Run validation script
+# 3. Run structure validation (no API calls)
 python validate_with_dspy.py
+```
+
+### Real API Testing
+
+To test with actual LLM API calls:
+
+```bash
+# 1. Set up API keys in .env file
+cp .env.example .env
+# Edit .env and add your OpenAI API key
+
+# 2. Run real API validation 
+python validate_with_real_api.py
+```
+
+**Sample output:**
+```
+✅ All techniques validated with real API calls!
+API Usage Summary:
+• API calls made: 6
+• Estimated tokens: 1,282  
+• Estimated cost: $0.0019
 ```
 
 ### Running Examples
@@ -131,28 +152,57 @@ The validation script checks:
 
 ## 📖 Quick Start
 
+### Basic Usage
+
 ```python
+import dspy
 from src.prompts.manager_style import create_customer_support_manager
-from src.techniques.role_prompting import create_veteran_engineer_persona
+from src.techniques.escape_hatches import EscapeHatchResponder
 from src.techniques.thinking_traces import ThinkingTracer
 
-# Use manager-style prompts
+# Configure DSpy with your OpenAI API key
+dspy.settings.configure(lm=dspy.LM(model="gpt-4o-mini", api_key="your-key"))
+
+# 1. Manager-style prompts for detailed responses
 support_manager = create_customer_support_manager()
-result = support_manager(
+response = support_manager(
     task="Handle a customer complaint about data loss",
     context="Customer reports losing 2 weeks of project data"
 )
+print(response)  # Detailed, empathetic customer service response
 
-# Use role-based personas
-engineer = create_veteran_engineer_persona()
-code_review = engineer(
-    task="Review this code for performance issues",
-    context="High-traffic production endpoint"
-)
+# 2. Escape hatches for uncertainty handling  
+escaper = EscapeHatchResponder()
+result = escaper("What will Bitcoin's price be next month?")
+print(f"Confidence: {result['uncertainty_analysis'].confidence_level}")
+# Output: Confidence: 0.15 (correctly identifies high uncertainty)
 
-# Use thinking traces
+# 3. Thinking traces for step-by-step reasoning
 tracer = ThinkingTracer(verbose=True)
-math_solution = tracer("Solve: A farmer has 35 heads and 94 legs...")
+solution = tracer("How many weighings to find the odd ball among 12?")
+# Shows detailed reasoning process with [THOUGHT], [HYPOTHESIS] markers
+```
+
+### Real-World Examples
+
+```python
+# Bug analysis with few-shot learning
+from src.techniques.few_shot import FewShotLearner, create_bug_analysis_examples
+
+examples = create_bug_analysis_examples()
+analyzer = FewShotLearner(examples)
+bug_analysis = analyzer("App crashes when uploading files > 50MB")
+# Provides structured analysis: root cause, impact, solution
+
+# Code review with role personas
+from src.techniques.role_prompting import create_veteran_engineer_persona
+
+engineer = create_veteran_engineer_persona()
+review = engineer(
+    task="Review this SQL query for security issues",
+    context="f\"SELECT * FROM users WHERE id={user_id}\""
+)
+# Identifies SQL injection vulnerability with detailed explanation
 ```
 
 ## 🏗️ Project Structure
@@ -255,6 +305,38 @@ deployment = await pipeline.distill_and_deploy(
     }
 )
 ```
+
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+**"Module not found" errors:**
+```bash
+# Make sure you're in the project directory and virtual environment
+cd dspy-advanced-prompting
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+**API key issues:**
+```bash
+# Check your .env file
+cat .env
+# Make sure OPENAI_API_KEY is set correctly
+```
+
+**Import errors:**
+```bash
+# Run from project root, not inside src/
+python -c "from src.prompts.manager_style import create_customer_support_manager; print('✓ Imports working')"
+```
+
+### Performance Tips
+
+- Use `gpt-4o-mini` for cost-effective testing
+- Cache results with DSpy's built-in caching
+- Monitor token usage with the validation scripts
+- Use escape hatches to avoid hallucination costs
 
 ## 📚 Key Insights
 
