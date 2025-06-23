@@ -184,7 +184,7 @@ Remember: You are a valued member of the {{ config.department }} team. Your succ
 class ManagerStylePrompt(dspy.Signature):
     """Execute task with manager-style detailed instructions"""
     
-    instructions = dspy.InputField(desc="The detailed manager-style instructions")
+    manager_instructions = dspy.InputField(desc="The detailed manager-style instructions")
     task = dspy.InputField(desc="The specific task to execute")
     context = dspy.InputField(desc="Additional context for the task")
     output = dspy.OutputField(desc="Task execution result following manager guidelines")
@@ -203,7 +203,7 @@ class ManagerStyleAgent(dspy.Module):
         """Execute a task with manager-style prompting"""
         instructions = self.template.render(config=self.config)
         result = self.executor(
-            instructions=instructions,
+            manager_instructions=instructions,
             task=task,
             context=context
         )
