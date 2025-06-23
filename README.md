@@ -2,6 +2,8 @@
 
 A comprehensive implementation of state-of-the-art prompting techniques used by top AI startups, built with DSpy.
 
+> **DSpy** is a framework for algorithmically optimizing LM prompts and weights. Instead of manually crafting prompts, DSpy allows you to define high-level signatures and automatically optimize them.
+
 ## 🚀 Overview
 
 This project demonstrates advanced prompting strategies that go beyond simple prompt engineering. Each technique is implemented as a reusable DSpy module with real-world examples.
